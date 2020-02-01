@@ -16,4 +16,4 @@ class DatabaseSeeder extends Seeder
          factory(\App\Models\BlogPost::class, 100)->create();
     }
 }
-  
+
