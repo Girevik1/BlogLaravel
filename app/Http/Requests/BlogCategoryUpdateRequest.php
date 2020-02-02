@@ -27,8 +27,25 @@ class BlogCategoryUpdateRequest extends FormRequest
         return [
             'title' => 'required|min:5|max:200',
             'slug' => 'max:200',
-            'description' => 'string|max:500|min:3',
+            'description' => 'required|string|max:500|min:3',
             'parent_id' => 'required|integer|exists:blog_categories,id',
+        ];
+    }
+
+//    public function rules()
+//    {
+//        return [
+//            'name' => 'required',
+//            'phone' => 'required',
+//            'g-recaptcha-response' => 'required|recaptchav3:register,0.5'
+//        ];
+//    }
+//
+    public function messages()
+    {
+        return [
+            'description.required' => 'Описание - обязательное поле',
+            //'title.required' => 'Имя - обязательное поле',
         ];
     }
 }
