@@ -6,34 +6,38 @@ use App\Http\Requests\BlogCategoryCreateRequest;
 use App\Http\Requests\BlogCategoryUpdateRequest;
 use App\Models\BlogCategory;
 use App\Repositories\BlogCategoryRepository;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
+use Illuminate\Http\Response;
 
 /**
  * Управления категориями блога
  *
- * @package
+ * @package App\Http\controllers\Blog\Admin
  */
 class CategoryController extends BaseController
 {
+    /**
+     * @var BlogCategoryRepository
+     */
     private $blogCategoryRepository;
 
     public function __construct()
     {
         parent::__conctruct();
+
         $this->blogCategoryRepository = app(BlogCategoryRepository::class);
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @return Factory|View
+     * @return Response
      */
     public function index()
     {
-        $pagination = BlogCategory::paginate(5);
+        //$pagination = BlogCategory::paginate(15);
+        $pagination = $this->blogCategoryRepository->getAllWithPaginate(5);
 
         return view('blog.admin.categories.index', compact('pagination'));
     }
@@ -41,15 +45,17 @@ class CategoryController extends BaseController
     /**
      * Show the form for creating a new resource.
      *
-     * @return Factory|View
+     * @return Response
      */
     public function create()
     {
-        //dd(__METHOD__);
         $item = new BlogCategory();
-        $categoryList = BlogCategory::all();
 
-        return \view('blog.admin.categories.edit',
+        //$categoryList = BlogCategory::all();
+        $categoryList = $this->blogCategoryRepository->getForComboBox();
+
+
+        return view('blog.admin.categories.edit',
             compact('item', 'categoryList'));
 
     }
@@ -58,7 +64,8 @@ class CategoryController extends BaseController
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return RedirectResponse
+     *
+     * @return Response
      */
     public function store(BlogCategoryCreateRequest $request)
     {
@@ -66,6 +73,7 @@ class CategoryController extends BaseController
         if (empty($data['slug'])) {
             $data['slug'] = str_slug($data['title']);
         }
+
         // создаст объект, но не добавит в БД
 //        $item = new BlogCategory($data);
 //        $item->save();
@@ -90,18 +98,18 @@ class CategoryController extends BaseController
      * @param BlogCategoryRepository $categoryRepository
      * @return Factory|View
      */
-    public function edit($id,  BlogCategoryRepository $categoryRepository)
+    public function edit($id)
     {
 //        $item = BlogCategory::FindOrFail($id);
 //        $categoryList = BlogCategory::all();
 
 
-        $item = $categoryRepository->getEdit($id);
+        $item =$this->blogCategoryRepository->getEdit($id);
         if (empty($item)) {
             abort(404);
         }
 
-        $categoryList = $categoryRepository->getForComboBox();
+        $categoryList = $this->blogCategoryRepository->getForComboBox();
 
         return view('blog.admin.categories.edit',
             compact('item', 'categoryList'));
@@ -110,9 +118,10 @@ class CategoryController extends BaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param BlogCategoryUpdateRequest $request
+     * @param Request $request
      * @param int $id
-     * @return RedirectResponse
+     *
+     * @return Response
      */
     public function update(BlogCategoryUpdateRequest $request, $id)
     {
@@ -138,7 +147,8 @@ class CategoryController extends BaseController
          $validatedData[] = $validator->errors();
          $validatedData[] = $validator->fails(); */
 
-        $item = BlogCategory::find($id);
+        //$item = BlogCategory::find($id);
+        $item = $this->blogCategoryRepository->getEdit($id);
         if (empty($item)) {
             return back()
                 ->withErrors(['msg' => "Запись id=[{$id}] не найдена"])
