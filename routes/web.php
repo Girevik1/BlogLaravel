@@ -33,6 +33,11 @@ Route::group($groupData, function () {
     Route::resource('categories','CategoryController')
         ->only($methods)
         ->names('blog.admin.categories');
+
+    // BlogPost
+    Route::resource('posts','PostController')
+        ->except(['show']) // кроме одного метода - нам надо
+        ->names('blog.admin.posts');
 });
 
 

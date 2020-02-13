@@ -15,7 +15,7 @@ use Illuminate\Http\Response;
  *
  * @package App\Http\controllers\Blog\Admin
  */
-class CategoryController extends BaseController
+class CategoryController extends  AdminBaseController
 {
     /**
      * @var BlogCategoryRepository
