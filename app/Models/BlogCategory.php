@@ -16,4 +16,14 @@ class BlogCategory extends Model
             'parent_id',
             'description',
         ];
+
+    /**
+     *
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function category()
+    {
+        return $this->hasOne(BlogPost::class, 'category_id', 'id');
+    }
 }
