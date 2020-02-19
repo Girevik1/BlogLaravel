@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\BlogPost as Model;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Models\User;
 
@@ -14,6 +15,18 @@ class BlogPostRepository extends CoreRepository
     public function getModelClass()
     {
         return Model::class;
+    }
+
+    /**
+     *  Получить модель для редактирования в админке.
+     *
+     * @param $id
+     *
+     * @return \App\Models\BlogPost
+     */
+    public function getEdit($id)
+    {
+        return $this->startConditions()->find($id);
     }
 
     /**

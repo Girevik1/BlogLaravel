@@ -95,8 +95,8 @@ class CategoryController extends  AdminBaseController
      * Show the form for editing the specified resource.
      *
      * @param int $id
-     * @param BlogCategoryRepository $categoryRepository
-     * @return Factory|View
+     *
+     * @return Response
      */
     public function edit($id)
     {
