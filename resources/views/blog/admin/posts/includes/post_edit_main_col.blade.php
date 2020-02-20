@@ -68,15 +68,13 @@
                                    type="text"
                                    class="form-control">
                         </div>
-
                         <div class="form-group">
-                            <label for="except">Выдержка</label>
-                            <textarea name="except"
-                                      id="except"
+                            <label for="excerpt">Выдержка</label>
+                            <textarea name="excerpt"
+                                      id="excerpt"
                                       class="form-control"
-                                      rows="3">{{ old('except', $item->except) }}</textarea>
+                                      rows="3">{{ old('excerpt', $item->excerpt) }}</textarea>
                         </div>
-
                         <div class="form-check">
                             <input type="hidden"
                                    name="is_published"
@@ -84,7 +82,7 @@
 
                             <input type="checkbox"
                                    name="is_published"
-                                   value="{{ $item->is_published }}"
+                                   value="1"
                                    class="form-check-input"
                                    @if($item->is_published)
                                    checked="checked"
