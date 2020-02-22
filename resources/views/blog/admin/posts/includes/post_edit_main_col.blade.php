@@ -44,7 +44,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-panel" id="adddata" role="tabpanel">
+                    <div class="tab-pane" id="adddata" role="tabpanel">
                         <div class="form-group">
                             <label for="category_id">Категория</label>
                             <select name="category_id"

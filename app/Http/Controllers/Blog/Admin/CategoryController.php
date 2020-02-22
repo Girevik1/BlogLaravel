@@ -70,9 +70,11 @@ class CategoryController extends  AdminBaseController
     public function store(BlogCategoryCreateRequest $request)
     {
         $data = $request->input();
+        /*
+         * //Ушло в обсервер
         if (empty($data['slug'])) {
             $data['slug'] = str_slug($data['title']);
-        }
+        }*/
 
         // создаст объект, но не добавит в БД
 //        $item = new BlogCategory($data);
@@ -87,6 +89,13 @@ class CategoryController extends  AdminBaseController
         } else {
             return back()->withErrors(['msg' => 'Ошибка сохранения'])
                 ->withInput();
+        }
+
+        $data = $request->all();
+        $result = $item->update($data);
+
+        if($result) {
+            return redirect();
         }
 
     }
@@ -118,7 +127,7 @@ class CategoryController extends  AdminBaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param BlogCategoryUpdateRequest $request
      * @param int $id
      *
      * @return Response
