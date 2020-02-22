@@ -3,9 +3,9 @@
 namespace App\Repositories;
 
 use App\Models\BlogCategory as Model;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\LengthAwarePaginator;
+use App\Models\User;
 
 class BlogCategoryRepository extends CoreRepository
 {
@@ -62,21 +62,28 @@ class BlogCategoryRepository extends CoreRepository
     /**
      * Получить категории для вывода пагинатором.
      *
-     * @param int|null $perPage
+     * @param $perPage
      *
      * @return LengthAwarePaginator
      */
     public function getAllWithPaginate($perPage = null)
     {
-        $columns = ['id', 'title', 'parent_id'];
+        $columns = [
+            'id',
+            'title',
+            'parent_id',
+        ];
 
         $result = $this
             ->startConditions()
             ->select($columns)
+            ->with([
+                'parentCategory:id,title',
+            ])
             ->paginate($perPage);
 
         return $result;
     }
 
-
 }
+
