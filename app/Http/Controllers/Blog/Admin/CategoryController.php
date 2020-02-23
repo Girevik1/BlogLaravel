@@ -91,12 +91,12 @@ class CategoryController extends  AdminBaseController
                 ->withInput();
         }
 
-        $data = $request->all();
-        $result = $item->update($data);
-
-        if($result) {
-            return redirect();
-        }
+//        $data = $request->all();
+//        $result = $item->update($data);
+//
+//        if($result) {
+//            return redirect();
+//        }
 
     }
 
@@ -112,8 +112,23 @@ class CategoryController extends  AdminBaseController
 //        $item = BlogCategory::FindOrFail($id);
 //        $categoryList = BlogCategory::all();
 
-
         $item =$this->blogCategoryRepository->getEdit($id);
+
+        $v['title_after'] = $item->title;
+
+//        $item->title = 'ASDdddfsdfdSD dfdfd  4444';
+//
+//        $v['title_after'] = $item->title;
+//        $v['getAttribute'] = $item->getAttribute('title'); // получаем один атрибут
+//        $v['attributesToArray'] = $item->attributesToArray(); // получаем все атрибуты
+//        $v['attributes'] = $item->attributes['title']; // получаем атрибут , но получим ошибку так как метод протектед, только в внутри класса
+//        $v['getAttributeValue'] = $item->getAttributeValue('title'); // получить значение атрибута
+//        $v['getMutatedAttributes'] = $item->getMutatedAttributes(); // получаем атрибуты для которых есть мутаторы
+//        $v['hasGetMutator for title'] = $item->hasGetMutator('title'); // есть ли мутатор для данного атрибута
+//        $v['toArray'] = $item->toArray(); // в массив превращаем
+//
+//        dd($v, $item);
+
         if (empty($item)) {
             abort(404);
         }
