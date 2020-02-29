@@ -22,6 +22,9 @@ Route::group(['namespace' => 'BLog', 'prefix' => 'blog'], function () {
  Route::resource('posts', 'PostController')->names('blog.posts');
 });
 
+// Ajax
+Route::any('/sendmail', 'Blog\AjaxController@sendmail');
+
 //Админка блога
 $groupData = [
     'namespace' => 'Blog\Admin',
