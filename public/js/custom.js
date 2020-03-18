@@ -6,15 +6,17 @@ jQuery(document).ready(function(){
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
         jQuery.ajax({
-            url: '/sendmail',
-            method: 'post',
+            url: '/ajax',
+            method: 'POST',
             data: {
                 name: jQuery('#name').val(),
                 type: jQuery('#type').val(),
                 price: jQuery('#price').val()
             },
             success: function(result){
+                console.log(333);
                 jQuery('.alert').show();
                 jQuery('.alert').html(result.success);
             }});

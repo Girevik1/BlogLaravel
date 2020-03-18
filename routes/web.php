@@ -18,12 +18,17 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::group(['prefix'=>'digging_deeper'], function () {
+    Route::get('collections','DiggingDeeperController@collection')
+        ->name('digging_deeper.collections');
+});
+
 Route::group(['namespace' => 'BLog', 'prefix' => 'blog'], function () {
  Route::resource('posts', 'PostController')->names('blog.posts');
 });
 
 // Ajax
-Route::any('/sendmail', 'Blog\AjaxController@sendmail');
+Route::any('/ajax', 'Blog\AjaxController@sendmail');
 
 //Админка блога
 $groupData = [
