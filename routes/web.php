@@ -30,6 +30,15 @@ Route::group(['namespace' => 'BLog', 'prefix' => 'blog'], function () {
 // Ajax
 Route::any('/ajax', 'Blog\AjaxController@sendmail');
 
+// Vue
+Route::get('/start', 'StartController@index');
+Route::get('/start/get-json', 'StartController@getJson');
+Route::get('/start/data-chart', 'StartController@chartData');
+Route::get('/start/random-chart', 'StartController@chartRandom');
+Route::get('/start/socket-chart', 'StartController@newEvent');
+Route::get('/start/send-message', 'StartController@sendMessage');
+Route::get('/start/send-private-message', 'StartController@sendPrivateMessage');
+
 //Админка блога
 $groupData = [
     'namespace' => 'Blog\Admin',
@@ -52,3 +61,7 @@ Route::group($groupData, function () {
 
 
 //Route::resource('rest', 'RestController')->names('restTest');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

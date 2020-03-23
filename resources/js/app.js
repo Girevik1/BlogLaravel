@@ -20,6 +20,14 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('prop-component', require('./components/PropComponent.vue').default);
+Vue.component('ajax-component', require('./components/AjaxComponent.vue').default);
+Vue.component('chartline-component', require('./components/ChartlineComponent.vue').default);
+Vue.component('chartpie-component', require('./components/ChartpieComponent.vue').default);
+Vue.component('chartrandom-component', require('./components/ChartrandomComponent.vue').default);
+Vue.component('socket-component', require('./components/SocketComponent.vue').default);
+Vue.component('socket-chat-component', require('./components/SocketChatComponent.vue').default);
+Vue.component('socket-private-component', require('./components/SocketPrivateComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

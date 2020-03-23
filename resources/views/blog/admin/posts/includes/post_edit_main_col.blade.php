@@ -53,8 +53,8 @@
                                     placeholder="Выберете категорию"
                                     required>
                                 @foreach($categoryList as $categoryOption)
-                                    <option value="{{ $categoryOption->id }}">
-                                        @if($categoryOption->id == $item->category_id) selected @endif
+                                    <option value="{{ $categoryOption->id }}"
+                                        @if($categoryOption->id == $item->category_id) selected @endif>
                                         {{--                                        {{ $categoryOption->id }}. {{ $categoryOption->title }}--}}
                                         {{ $categoryOption->id_title }}
                                     </option>
