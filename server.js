@@ -4,9 +4,9 @@ var io = require('socket.io')(http);
 var Redis = require('ioredis');
 
 var redis = new Redis();
-redis.psubscribe('news-action.*');
+redis.psubscribe("news-action.*");
 redis.on('pmessage', function (pattern, channel, message) {
-    console.log('Message recieved: ' + message);
+    console.log('Message Recieved: ' + message);
     console.log('Chanel: ' + channel);
     message = JSON.parse(message);
     io.emit(channel + ':' + message.event, message.data);

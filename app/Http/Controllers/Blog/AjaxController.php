@@ -21,7 +21,6 @@ class AjaxController extends BaseController
             return response()->json(['success'=>'Data is successfully added']);
         }
 
-
         return view('blog.ajax.index');
     }
 

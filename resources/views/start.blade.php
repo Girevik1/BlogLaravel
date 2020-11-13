@@ -24,14 +24,17 @@
             <p>
                 <chartpie-component></chartpie-component>
             </p>
+
             <h4 id="">#6 ChartJS(Line) & VueJs*ajax+trigger+reload</h4>
             <p>
                 <chartrandom-component></chartrandom-component>
             </p>
+
             <h4 id="">#7 REALTIME ChartJS(Line) & VueJs*ajax+trigger+reload</h4>
             <p>
                 <socket-component></socket-component>
             </p>
+
             <h4 id="">#8 REALTIME Chat VueJs*ajax+trigger+reload</h4>
             <p>
             @if (Auth::check())
@@ -39,6 +42,7 @@
             @endif
             <socket-chat-component></socket-chat-component>
             </p>
+
             <h4 id="">#9 REALTIME Chat Private VueJs*ajax+trigger+reload</h4>
             <p>
             @php

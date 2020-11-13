@@ -5,7 +5,7 @@
                 <div class="row form-group">
                     <div class="col-sm-4">
                         <select name="" multiple="" class="form-control" id="" v-model="usersSelect">
-                            <option :value="'news-action.'+ user.id" v-for="user in users">{{user.email}}</option>
+                            <option v-for="user in users" :value="'news-action.'+ user.id">{{user.email}}</option>
                         </select>
                     </div>
                     <div class="col-sm-12">
@@ -29,17 +29,18 @@
             return {
                 dataMessages: [],
                 message: "",
-                userSelect: []
+                usersSelect: []
             }
         },
         props: [
             'users',
             'user'
         ],
-        mounted() {
-            var socket = io('http://localhost:3000'); // добавил клиент для связи с сервером
+        created() {
+            var socket = io.connect('http://localhost:3000'); // добавил клиент для связи с сервером
 
-            socket.on("news-action." + this.user.id + ":App\\Events\\PrivateMessage", function (data) {
+            socket.on("news-action." + this.user.id + ":App\\Events\\PrivateMessage", function (data) { // отловит канал на стороне клиента
+                console.log(data.message)
                 this.dataMessages.push(data.message.user + ': ' + data.message.message)
             }.bind(this));
             socket.on("news-action.:App\\Events\\PrivateMessage", function (data) {

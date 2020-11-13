@@ -2012,6 +2012,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2031,7 +2039,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.is_refresh = true;
-      axios.get('/start/get-json/').then(function (response) {
+      axios.get("/start/get-json/").then(function (response) {
         console.log(response);
         _this.urldata = response.data;
         _this.is_refresh = false;
@@ -2439,14 +2447,16 @@ __webpack_require__.r(__webpack_exports__);
     return {
       dataMessages: [],
       message: "",
-      userSelect: []
+      usersSelect: []
     };
   },
   props: ['users', 'user'],
-  mounted: function mounted() {
-    var socket = io('http://localhost:3000'); // добавил клиент для связи с сервером
+  created: function created() {
+    var socket = io.connect('http://localhost:3000'); // добавил клиент для связи с сервером
 
     socket.on("news-action." + this.user.id + ":App\\Events\\PrivateMessage", function (data) {
+      // отловит канал на стороне клиента
+      console.log(data.message);
       this.dataMessages.push(data.message.user + ': ' + data.message.message);
     }.bind(this));
     socket.on("news-action.:App\\Events\\PrivateMessage", function (data) {
@@ -82046,7 +82056,13 @@ var render = function() {
                 staticClass: "btn btn-success text mb-1",
                 on: { click: _vm.update }
               },
-              [_vm._v("Обновить - " + _vm._s(_vm.id) + "...")]
+              [
+                _vm._v(
+                  "\n                Обновить - " +
+                    _vm._s(_vm.id) +
+                    "...\n            "
+                )
+              ]
             )
           : _vm._e(),
         _vm._v(" "),
@@ -82062,7 +82078,7 @@ var render = function() {
           _c(
             "tbody",
             _vm._l(_vm.urldata, function(url) {
-              return _c("tr", [
+              return _c("tr", { key: url.id }, [
                 _c("td", [_vm._v(_vm._s(url.title))]),
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(url.url))])

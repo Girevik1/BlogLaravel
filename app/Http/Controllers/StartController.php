@@ -115,5 +115,6 @@ class StartController extends Controller
 //        event(new NewMessage($request->input('message')));
         PrivateMessage::dispatch($request->all());
         return $request->all();
+
     }
 }
